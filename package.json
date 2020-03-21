@@ -8,7 +8,10 @@
     "build": "webpack"
   },
   "keywords": [
+    "electron",
+    "vuex",
     "vuex-electron",
+    "electron-store",
     "persisted-state",
     "persisted-part-state",
     "configurable-persisted"
