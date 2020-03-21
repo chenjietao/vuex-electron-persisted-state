@@ -1,0 +1,43 @@
+{
+  "name": "vuex-electron-persisted-state",
+  "version": "1.0.0",
+  "description": "Vuex plugin for electron that persisting part or all state to a local file.",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint --ext .js src/",
+    "build": "webpack"
+  },
+  "keywords": [
+    "vuex-electron",
+    "persisted-state",
+    "persisted-part-state",
+    "configurable-persisted"
+  ],
+  "author": "chenjietao",
+  "repository": {
+    "url": "https://github.com/chenjietao/vuex-electron-persisted-state"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/runtime": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "electron": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-formatter-pretty": "^3.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "electron-store": "^5.1.1",
+    "lodash": "^4.17.15"
+  }
+}
