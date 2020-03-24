@@ -8,7 +8,7 @@ Use as a plugin
 ```javascript
 // src/store/index.js
 import Vuex from 'vuex'
-import { plugin as createPersistedState } from 'vuex-electron-sync-state'
+import { plugin as createPersistedState } from 'vuex-electron-persisted-state'
 
 const store = Vuex.Store({})
 
@@ -111,11 +111,26 @@ ipcMain.on('logout', () => {
 })
 
 ```
+Persisting all state
+```javascript
+import store from './src/store/index'
+import { configure } from 'vuex-electron-persisted-state'
+
+configure(store, {
+      keypath: {
+        data: '' // `store.state` will be persisted as `data` key in config.json
+      },
+      blacklist: (mutation) {
+        return mutation.type === 'SYNC_CURRENT_MUTATION' // do not persiste state when mutation.type is 'SYNC_CURRENT_MUTATION'
+      }
+    })
+})
+```
 
 ## Introduction
 
 This plugin is based on [electron-store](https://www.npmjs.com/package/electron-store), so it supports all electron-store initial options. There are some other options you should configure.
 
-* **blacklist** and **whitelist** {String[]|Function} You can pass in an array of strings or a filter function to determine whether you want to perform persistence or not.
-* **keypath** {Object} Configure the key to be stored and property path of the corresponding state to be persisted in the form of key-value. If not configured, all the state will be persisted as 'config' key.
-* **afterinit** {Function} Execute after initialization.
+* **blacklist** and **whitelist** *{String[]|Function}* You can pass in an array of strings or a filter function to determine whether you want to perform persistence or not.
+* **keypath** *{Object}* Configure the key to be stored and property path of the corresponding state to be persisted in the form of key-value. If not configured, all the state will be persisted as 'config' key.
+* **afterinit** *{Function}* Execute after initialization.
