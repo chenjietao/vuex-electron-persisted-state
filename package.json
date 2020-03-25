@@ -1,6 +1,6 @@
 {
   "name": "vuex-electron-persisted-state",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vuex plugin for electron that persisting part or all state to a local file.",
   "main": "src/index.js",
   "scripts": {

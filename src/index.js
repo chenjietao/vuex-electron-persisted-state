@@ -1,7 +1,7 @@
 const Store = require('electron-store')
-const at = require('lodash/fp/at')
-const merge = require('lodash/fp/merge')
-const mergeWith = require('lodash/fp/mergeWith')
+const at = require('lodash/at')
+const merge = require('lodash/merge')
+const mergeWith = require('lodash/mergeWith')
 
 const CONFIG_NAME = 'config'
 const CONFIG_KEY = 'state'
@@ -108,7 +108,7 @@ class VuexElectronPersistedState {
       const pathchain = this.pathList[index]
       const config = this.getConfig(key)
       if (config) {
-        let state = {}
+        const state = {}
         let tmpObj = state
         pathchain.split('.').forEach((key, index, array) => {
           if (index !== array.length - 1) {
@@ -117,7 +117,7 @@ class VuexElectronPersistedState {
           } else if (key) {
             tmpObj[key] = config
           } else if (index === 0) {
-            state = config
+            Object.assign(state, config)
           }
         })
         canMerge = true
