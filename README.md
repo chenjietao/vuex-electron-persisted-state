@@ -106,8 +106,8 @@ ipcMain.on('login-success', () => {
 })
 
 ipcMain.on('logout', () => {
-  userInfoPersisted.unsubscribe() // unsubscribe
-  friendListPersisted.unsubscribe() // unsubscribe
+  userInfoPersisted.terminate() // close
+  friendListPersisted.terminate() // close
 })
 
 ```

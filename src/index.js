@@ -41,17 +41,24 @@ class VuexElectronPersistedState {
     }
 
     if (!options.keypath) {
-      this.keyList = [CONFIG_KEY]
-      this.pathList = ['']
+      this.keypath = {
+        [CONFIG_KEY]: ''
+      }
     } else {
-      this.keyList = Object.keys(options.keypath)
-      this.pathList = this.keyList.map(key => options.keypath[key])
+      this.keypath = options.keypath
     }
 
     this.blacklist = this.loadFilter(options.blacklist)
     this.whitelist = this.loadFilter(options.whitelist)
 
     this.unsubscribe = null
+  }
+
+  terminate () {
+    if (typeof this.unsubscribe === 'function') {
+      this.unsubscribe()
+    }
+    this.storage = null
   }
 
   createStorage () {
@@ -104,8 +111,8 @@ class VuexElectronPersistedState {
     // 将本地已持久化的配置替换到state中
     let canMerge = false
     let mergeState = merge({}, this.store.state)
-    this.keyList.forEach((key, index) => {
-      const pathchain = this.pathList[index]
+    Object.keys(this.keypath).forEach((key) => {
+      const pathchain = this.keypath[key]
       const config = this.getConfig(key)
       if (config) {
         const state = {}
@@ -134,13 +141,15 @@ class VuexElectronPersistedState {
       if (this.blacklist && this.blacklist(mutation)) return
       if (this.whitelist && !this.whitelist(mutation)) return
 
-      this.keyList.forEach((key, index) => {
-        const pathchain = this.pathList[index]
+      Object.keys(this.keypath).forEach((key) => {
+        const pathchain = this.keypath[key]
         let config = state
         if (pathchain.length > 0) {
           config = at(state, pathchain)[0]
         }
-        this.setConfig(key, config)
+        if (config !== undefined && JSON.stringify(config) !== JSON.stringify(this.getConfig(key))) {
+          this.setConfig(key, config)
+        }
       })
     })
     if (typeof this.afterinit === 'function') {
